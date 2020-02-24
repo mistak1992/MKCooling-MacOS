@@ -1,0 +1,665 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC4D2EED23FD136F0002678D /* mkcoolingLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC4D2EF823FD154B0002678D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EEF23FD154A0002678D /* AppDelegate.m */; };
+		CC4D2EFA23FD154B0002678D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4D2EF223FD154A0002678D /* Assets.xcassets */; };
+		CC4D2EFC23FD154B0002678D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EF723FD154B0002678D /* main.m */; };
+		CC4D2F1E23FD212A0002678D /* MKPopoverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EFD23FD21290002678D /* MKPopoverVC.m */; };
+		CC4D2F1F23FD212A0002678D /* MKMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EFF23FD21290002678D /* MKMainController.m */; };
+		CC4D2F2023FD212A0002678D /* smc.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0123FD21290002678D /* smc.m */; };
+		CC4D2F2123FD212A0002678D /* MKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0423FD21290002678D /* MKBLEManager.m */; };
+		CC4D2F2323FD212A0002678D /* MKMicrophoneTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */; };
+		CC4D2F2423FD212A0002678D /* smcWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0B23FD21290002678D /* smcWrapper.m */; };
+		CC4D2F2523FD212A0002678D /* MKConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0C23FD21290002678D /* MKConvertor.m */; };
+		CC4D2F2623FD212A0002678D /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */; };
+		CC4D2F2723FD212A0002678D /* MachineDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1023FD21290002678D /* MachineDefaults.m */; };
+		CC4D2F2823FD212A0002678D /* MKBLEDataPresistModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1223FD21290002678D /* MKBLEDataPresistModel+CoreDataClass.m */; };
+		CC4D2F2923FD212A0002678D /* MKDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1323FD21290002678D /* MKDataController.m */; };
+		CC4D2F2A23FD212A0002678D /* MKBLEDataPresistModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1423FD21290002678D /* MKBLEDataPresistModel+CoreDataProperties.m */; };
+		CC4D2F2B23FD212A0002678D /* MKPersistData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1623FD21290002678D /* MKPersistData.xcdatamodeld */; };
+		CC4D2F2C23FD212A0002678D /* MKBLEDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1B23FD21290002678D /* MKBLEDataModel.m */; };
+		CC4D2F2F23FFA4470002678D /* MKDialogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F2E23FFA4470002678D /* MKDialogueVC.m */; };
+		CC4D2F3F23FFE74B0002678D /* MKDialogueC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */; };
+		CCF2B9EB23FCEEEE0007FC1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF2B9EA23FCEEEE0007FC1D /* AppDelegate.m */; };
+		CCF2B9F023FCEEEE0007FC1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9EF23FCEEEE0007FC1D /* Assets.xcassets */; };
+		CCF2B9F323FCEEEE0007FC1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */; };
+		CCF2B9F623FCEEEE0007FC1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF2B9F523FCEEEE0007FC1D /* main.m */; };
+		CCF2B9FF23FCFF8B0007FC1D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; };
+		CCF2BA0023FCFF8B0007FC1D /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCF2BA0C23FD0CC40007FC1D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; };
+		CCF2BA0F23FD0CC40007FC1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */; };
+		CCF2BA1123FD0CC40007FC1D /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CCF2BA0123FCFF8B0007FC1D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CCF2BA0023FCFF8B0007FC1D /* CocoaLumberjack.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF2BA1023FD0CC40007FC1D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CCF2BA1123FD0CC40007FC1D /* CocoaLumberjack.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF2BA1723FD10840007FC1D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				CC4D2EED23FD136F0002678D /* mkcoolingLauncher.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CC4D2EEF23FD154A0002678D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CC4D2EF023FD154A0002678D /* mkcoolingLauncher.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = mkcoolingLauncher.entitlements; sourceTree = "<group>"; };
+		CC4D2EF223FD154A0002678D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC4D2EF323FD154A0002678D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CC4D2EF623FD154B0002678D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		CC4D2EF723FD154B0002678D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CC4D2EFD23FD21290002678D /* MKPopoverVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPopoverVC.m; sourceTree = "<group>"; };
+		CC4D2EFE23FD21290002678D /* MKPopoverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPopoverVC.h; sourceTree = "<group>"; };
+		CC4D2EFF23FD21290002678D /* MKMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMainController.m; sourceTree = "<group>"; };
+		CC4D2F0123FD21290002678D /* smc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smc.m; sourceTree = "<group>"; };
+		CC4D2F0223FD21290002678D /* MKConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKConvertor.h; sourceTree = "<group>"; };
+		CC4D2F0323FD21290002678D /* smcWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smcWrapper.h; sourceTree = "<group>"; };
+		CC4D2F0423FD21290002678D /* MKBLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBLEManager.m; sourceTree = "<group>"; };
+		CC4D2F0523FD21290002678D /* MachineDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineDefaults.h; sourceTree = "<group>"; };
+		CC4D2F0723FD21290002678D /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
+		CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMicrophoneTool.m; sourceTree = "<group>"; };
+		CC4D2F0923FD21290002678D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		CC4D2F0A23FD21290002678D /* smc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
+		CC4D2F0B23FD21290002678D /* smcWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smcWrapper.m; sourceTree = "<group>"; };
+		CC4D2F0C23FD21290002678D /* MKConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKConvertor.m; sourceTree = "<group>"; };
+		CC4D2F0D23FD21290002678D /* MKMicrophoneTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMicrophoneTool.h; sourceTree = "<group>"; };
+		CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		CC4D2F0F23FD21290002678D /* MKBLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBLEManager.h; sourceTree = "<group>"; };
+		CC4D2F1023FD21290002678D /* MachineDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineDefaults.m; sourceTree = "<group>"; };
+		CC4D2F1223FD21290002678D /* MKBLEDataPresistModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKBLEDataPresistModel+CoreDataClass.m"; sourceTree = "<group>"; };
+		CC4D2F1323FD21290002678D /* MKDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDataController.m; sourceTree = "<group>"; };
+		CC4D2F1423FD21290002678D /* MKBLEDataPresistModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKBLEDataPresistModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		CC4D2F1523FD21290002678D /* MKBLEDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBLEDataModel.h; sourceTree = "<group>"; };
+		CC4D2F1723FD21290002678D /* persistData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = persistData.xcdatamodel; sourceTree = "<group>"; };
+		CC4D2F1823FD21290002678D /* MKBLEDataPresistModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKBLEDataPresistModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		CC4D2F1923FD21290002678D /* MKDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDataController.h; sourceTree = "<group>"; };
+		CC4D2F1A23FD21290002678D /* MKBLEDataPresistModel+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKBLEDataPresistModel+CoreDataClass.h"; sourceTree = "<group>"; };
+		CC4D2F1B23FD21290002678D /* MKBLEDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBLEDataModel.m; sourceTree = "<group>"; };
+		CC4D2F1C23FD21290002678D /* MKMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMainController.h; sourceTree = "<group>"; };
+		CC4D2F1D23FD21290002678D /* mkcooling.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = mkcooling.entitlements; sourceTree = "<group>"; };
+		CC4D2F2D23FFA4470002678D /* MKDialogueVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKDialogueVC.h; sourceTree = "<group>"; };
+		CC4D2F2E23FFA4470002678D /* MKDialogueVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKDialogueVC.m; sourceTree = "<group>"; };
+		CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDialogueC.m; sourceTree = "<group>"; };
+		CC4D2F3E23FFE74B0002678D /* MKDialogueC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDialogueC.h; sourceTree = "<group>"; };
+		CCF2B9E623FCEEEE0007FC1D /* mkcooling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mkcooling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCF2B9E923FCEEEE0007FC1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CCF2B9EA23FCEEEE0007FC1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CCF2B9EF23FCEEEE0007FC1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CCF2B9F223FCEEEE0007FC1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CCF2B9F423FCEEEE0007FC1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCF2B9F523FCEEEE0007FC1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CCF2B9FD23FCF0380007FC1D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/Mac/CocoaLumberjack.framework; sourceTree = "<group>"; };
+		CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mkcoolingLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCF2B9E323FCEEEE0007FC1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCF2B9FF23FCFF8B0007FC1D /* CocoaLumberjack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF2BA0B23FD0CC40007FC1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCF2BA0C23FD0CC40007FC1D /* CocoaLumberjack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6A79CCA13CF2F64709EE3F64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC4D2EEE23FD15350002678D /* mkcoolingLauncher */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2EF323FD154A0002678D /* AppDelegate.h */,
+				CC4D2EEF23FD154A0002678D /* AppDelegate.m */,
+				CC4D2EF223FD154A0002678D /* Assets.xcassets */,
+				CC4D2EF423FD154B0002678D /* Base.lproj */,
+				CC4D2EF723FD154B0002678D /* main.m */,
+				CC4D2EF023FD154A0002678D /* mkcoolingLauncher.entitlements */,
+			);
+			path = mkcoolingLauncher;
+			sourceTree = "<group>";
+		};
+		CC4D2EF423FD154B0002678D /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2EF523FD154B0002678D /* Main.storyboard */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		CC4D2F0023FD21290002678D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2F0923FD21290002678D /* Constants.h */,
+				CC4D2F0523FD21290002678D /* MachineDefaults.h */,
+				CC4D2F1023FD21290002678D /* MachineDefaults.m */,
+				CC4D2F0F23FD21290002678D /* MKBLEManager.h */,
+				CC4D2F0423FD21290002678D /* MKBLEManager.m */,
+				CC4D2F0223FD21290002678D /* MKConvertor.h */,
+				CC4D2F0C23FD21290002678D /* MKConvertor.m */,
+				CC4D2F0D23FD21290002678D /* MKMicrophoneTool.h */,
+				CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */,
+				CC4D2F0723FD21290002678D /* NSFileManager+DirectoryLocations.h */,
+				CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */,
+				CC4D2F0A23FD21290002678D /* smc.h */,
+				CC4D2F0123FD21290002678D /* smc.m */,
+				CC4D2F0323FD21290002678D /* smcWrapper.h */,
+				CC4D2F0B23FD21290002678D /* smcWrapper.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CC4D2F1123FD21290002678D /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2F1523FD21290002678D /* MKBLEDataModel.h */,
+				CC4D2F1B23FD21290002678D /* MKBLEDataModel.m */,
+				CC4D2F1A23FD21290002678D /* MKBLEDataPresistModel+CoreDataClass.h */,
+				CC4D2F1223FD21290002678D /* MKBLEDataPresistModel+CoreDataClass.m */,
+				CC4D2F1823FD21290002678D /* MKBLEDataPresistModel+CoreDataProperties.h */,
+				CC4D2F1423FD21290002678D /* MKBLEDataPresistModel+CoreDataProperties.m */,
+				CC4D2F1923FD21290002678D /* MKDataController.h */,
+				CC4D2F1323FD21290002678D /* MKDataController.m */,
+				CC4D2F1623FD21290002678D /* MKPersistData.xcdatamodeld */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		CC4D2F3923FFD82A0002678D /* Dialogue */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2F3E23FFE74B0002678D /* MKDialogueC.h */,
+				CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */,
+				CC4D2F2D23FFA4470002678D /* MKDialogueVC.h */,
+				CC4D2F2E23FFA4470002678D /* MKDialogueVC.m */,
+			);
+			path = Dialogue;
+			sourceTree = "<group>";
+		};
+		CCF2B9DD23FCEEEE0007FC1D = {
+			isa = PBXGroup;
+			children = (
+				CCF2B9E823FCEEEE0007FC1D /* mkcooling */,
+				CC4D2EEE23FD15350002678D /* mkcoolingLauncher */,
+				CCF2B9E723FCEEEE0007FC1D /* Products */,
+				6A79CCA13CF2F64709EE3F64 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CCF2B9E723FCEEEE0007FC1D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCF2B9E623FCEEEE0007FC1D /* mkcooling.app */,
+				CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCF2B9E823FCEEEE0007FC1D /* mkcooling */ = {
+			isa = PBXGroup;
+			children = (
+				CC4D2F3923FFD82A0002678D /* Dialogue */,
+				CCF2B9E923FCEEEE0007FC1D /* AppDelegate.h */,
+				CCF2B9EA23FCEEEE0007FC1D /* AppDelegate.m */,
+				CCF2B9EF23FCEEEE0007FC1D /* Assets.xcassets */,
+				CCF2B9F423FCEEEE0007FC1D /* Info.plist */,
+				CCF2B9F523FCEEEE0007FC1D /* main.m */,
+				CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */,
+				CC4D2F1D23FD21290002678D /* mkcooling.entitlements */,
+				CC4D2F1C23FD21290002678D /* MKMainController.h */,
+				CC4D2EFF23FD21290002678D /* MKMainController.m */,
+				CC4D2EFE23FD21290002678D /* MKPopoverVC.h */,
+				CC4D2EFD23FD21290002678D /* MKPopoverVC.m */,
+				CCF2B9FD23FCF0380007FC1D /* PrefixHeader.pch */,
+				CC4D2F1123FD21290002678D /* Stores */,
+				CC4D2F0023FD21290002678D /* Utils */,
+			);
+			path = mkcooling;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CCF2B9E523FCEEEE0007FC1D /* mkcooling */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCF2B9FA23FCEEEE0007FC1D /* Build configuration list for PBXNativeTarget "mkcooling" */;
+			buildPhases = (
+				CCF2B9E223FCEEEE0007FC1D /* Sources */,
+				CCF2B9E323FCEEEE0007FC1D /* Frameworks */,
+				CCF2B9E423FCEEEE0007FC1D /* Resources */,
+				CCF2BA0123FCFF8B0007FC1D /* Embed Frameworks */,
+				CCF2BA1723FD10840007FC1D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mkcooling;
+			productName = pchDemo;
+			productReference = CCF2B9E623FCEEEE0007FC1D /* mkcooling.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CCF2BA0623FD0CC40007FC1D /* mkcoolingLauncher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCF2BA1223FD0CC40007FC1D /* Build configuration list for PBXNativeTarget "mkcoolingLauncher" */;
+			buildPhases = (
+				CCF2BA0723FD0CC40007FC1D /* Sources */,
+				CCF2BA0B23FD0CC40007FC1D /* Frameworks */,
+				CCF2BA0D23FD0CC40007FC1D /* Resources */,
+				CCF2BA1023FD0CC40007FC1D /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mkcoolingLauncher;
+			productName = pchDemo;
+			productReference = CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCF2B9DE23FCEEEE0007FC1D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = mist;
+				TargetAttributes = {
+					CCF2B9E523FCEEEE0007FC1D = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CCF2B9E123FCEEEE0007FC1D /* Build configuration list for PBXProject "mkcooling" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CCF2B9DD23FCEEEE0007FC1D;
+			productRefGroup = CCF2B9E723FCEEEE0007FC1D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCF2B9E523FCEEEE0007FC1D /* mkcooling */,
+				CCF2BA0623FD0CC40007FC1D /* mkcoolingLauncher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CCF2B9E423FCEEEE0007FC1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCF2B9F023FCEEEE0007FC1D /* Assets.xcassets in Resources */,
+				CCF2B9F323FCEEEE0007FC1D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF2BA0D23FD0CC40007FC1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4D2EFA23FD154B0002678D /* Assets.xcassets in Resources */,
+				CCF2BA0F23FD0CC40007FC1D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCF2B9E223FCEEEE0007FC1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4D2F2B23FD212A0002678D /* MKPersistData.xcdatamodeld in Sources */,
+				CC4D2F2A23FD212A0002678D /* MKBLEDataPresistModel+CoreDataProperties.m in Sources */,
+				CC4D2F2F23FFA4470002678D /* MKDialogueVC.m in Sources */,
+				CC4D2F2323FD212A0002678D /* MKMicrophoneTool.m in Sources */,
+				CC4D2F2523FD212A0002678D /* MKConvertor.m in Sources */,
+				CC4D2F1E23FD212A0002678D /* MKPopoverVC.m in Sources */,
+				CC4D2F2423FD212A0002678D /* smcWrapper.m in Sources */,
+				CC4D2F3F23FFE74B0002678D /* MKDialogueC.m in Sources */,
+				CC4D2F2623FD212A0002678D /* NSFileManager+DirectoryLocations.m in Sources */,
+				CC4D2F2823FD212A0002678D /* MKBLEDataPresistModel+CoreDataClass.m in Sources */,
+				CC4D2F1F23FD212A0002678D /* MKMainController.m in Sources */,
+				CC4D2F2123FD212A0002678D /* MKBLEManager.m in Sources */,
+				CC4D2F2023FD212A0002678D /* smc.m in Sources */,
+				CC4D2F2923FD212A0002678D /* MKDataController.m in Sources */,
+				CC4D2F2C23FD212A0002678D /* MKBLEDataModel.m in Sources */,
+				CCF2B9F623FCEEEE0007FC1D /* main.m in Sources */,
+				CCF2B9EB23FCEEEE0007FC1D /* AppDelegate.m in Sources */,
+				CC4D2F2723FD212A0002678D /* MachineDefaults.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCF2BA0723FD0CC40007FC1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4D2EFC23FD154B0002678D /* main.m in Sources */,
+				CC4D2EF823FD154B0002678D /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CC4D2EF523FD154B0002678D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC4D2EF623FD154B0002678D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCF2B9F223FCEEEE0007FC1D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CCF2B9F823FCEEEE0007FC1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCF2B9F923FCEEEE0007FC1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCF2B9FB23FCEEEE0007FC1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = mkcooling/mkcooling.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/mkcooling/PrefixHeader.pch";
+				INFOPLIST_FILE = mkcooling/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCF2B9FC23FCEEEE0007FC1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = mkcooling/mkcooling.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/mkcooling/PrefixHeader.pch";
+				INFOPLIST_FILE = mkcooling/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CCF2BA1323FD0CC40007FC1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/mkcoolingLauncher/mkcoolingLauncher.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/mkcooling/PrefixHeader.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/mkcoolingLauncher/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCF2BA1423FD0CC40007FC1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/mkcoolingLauncher/mkcoolingLauncher.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/mkcooling/PrefixHeader.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/mkcoolingLauncher/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCF2B9E123FCEEEE0007FC1D /* Build configuration list for PBXProject "mkcooling" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCF2B9F823FCEEEE0007FC1D /* Debug */,
+				CCF2B9F923FCEEEE0007FC1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCF2B9FA23FCEEEE0007FC1D /* Build configuration list for PBXNativeTarget "mkcooling" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCF2B9FB23FCEEEE0007FC1D /* Debug */,
+				CCF2B9FC23FCEEEE0007FC1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCF2BA1223FD0CC40007FC1D /* Build configuration list for PBXNativeTarget "mkcoolingLauncher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCF2BA1323FD0CC40007FC1D /* Debug */,
+				CCF2BA1423FD0CC40007FC1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CC4D2F1623FD21290002678D /* MKPersistData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CC4D2F1723FD21290002678D /* persistData.xcdatamodel */,
+			);
+			currentVersion = CC4D2F1723FD21290002678D /* persistData.xcdatamodel */;
+			path = MKPersistData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = CCF2B9DE23FCEEEE0007FC1D /* Project object */;
+}

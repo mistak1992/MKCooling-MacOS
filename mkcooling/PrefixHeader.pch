@@ -1,0 +1,46 @@
+//
+//  PrefixHeader.pch
+//  pchDemo
+//
+//  Created by mist on 2020/2/19.
+//  Copyright © 2020 mist. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "MKBLEDataPresistModel+CoreDataClass.h"
+#import "MKBLEDataModel.h"
+#import "MKDataController.h"
+#import "MKPopoverVC.h"
+#import "MKDialogueVC.h"
+#import "MKDialogueC.h"
+
+static const DDLogLevel ddLogLevel = DDLogLevelAll;
+
+#define kNotificationNAME_RPM @"kNotificationNAME_RPM"
+#define kNotificationNAME_DIALOGUECLOSE @"kNotificationNAME_DIALOGUECLOSE"
+#define kNotificationNAME_RESETCONNECTION @"kNotificationNAME_RESETCONNECTION"
+#define kNotificationNAME_KILLLAUNCHER @"kNotificationNAME_KILLLAUNCHER"
+#define kNotificationNAME_RESIGNACTIVE @"kNotificationNAME_RESIGNACTIVE"
+#define kNotificationNAME_MODECHANGED @"kNotificationNAME_MODECHANGED"
+#define kNotificationNAME_STATECHANGED @"kNotificationNAME_STATECHANGED"
+
+typedef NS_ENUM(NSUInteger, MKCoolerMode) {
+    MKCoolerModeOff,
+    MKCoolerModeSystem,
+    MKCoolerModeAI,
+};
+
+typedef NS_ENUM(NSUInteger, MKCoolerState) {
+    MKCoolerStateOff,
+    MKCoolerStateIdle,
+    MKCoolerStateSleep,
+    MKCoolerStateRunning,
+};
+
+#endif /* PrefixHeader_pch */
