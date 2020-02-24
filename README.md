@@ -5,3 +5,4 @@
 MKCooling
 ===============
 MKCooling is aim to cooling Mac mini
+MKCooling-MacOS is the software on MacOS platform
