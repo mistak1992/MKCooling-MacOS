@@ -12,6 +12,8 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#import "MKCpuTool.h"
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) MKMainController *vc;
@@ -21,16 +23,16 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+//    NSLog(@"%lf", [MKCpuTool getCPULoadMax]);
     // init Logger
     [DDLog addLogger:[DDOSLogger sharedInstance]]; // Uses os_log
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSURL *logfileURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]; //mkcooling.log
     DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:documentPath];
 //    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
     DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-    fileLogger.rollingFrequency = 60; // 24 hour rolling
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    NSLog(@"%@", fileLogger.logFileManager.logsDirectory);
+//    NSLog(@"%@", fileLogger.logFileManager.logsDirectory);
     [DDLog addLogger:fileLogger];
     
     // Insert code here to initialize your application
@@ -47,6 +49,7 @@
     }];
     // mainController
     _vc = [[MKMainController alloc] init];
+    _vc.isWakeUp = YES;
     // sleep/wake
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(onSleepNote:) name:NSWorkspaceWillSleepNotification object:nil];
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(onWakeNote:) name:NSWorkspaceDidWakeNotification object:nil];
@@ -59,6 +62,7 @@
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification{
+    _vc.isWakeUp = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RESIGNACTIVE object:nil];
 }
 

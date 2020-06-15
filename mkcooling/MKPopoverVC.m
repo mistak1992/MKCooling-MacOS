@@ -8,9 +8,9 @@
 
 #import "MKPopoverVC.h"
 
-#import "MKMicrophoneTool.h"
-
 #import <ServiceManagement/ServiceManagement.h>
+
+#import "MKBLEManager.h"
 
 @interface MKPopoverVC () <NSWindowDelegate>
 
@@ -20,7 +20,7 @@
 
 @property (weak) IBOutlet NSPopUpButton *modeList;
 
-@property (nonatomic, strong) MKMicrophoneTool *microphoneTool;
+@property (weak) IBOutlet NSButton *scanButton;
 
 @end
 
@@ -48,14 +48,15 @@
     [self.switchCheck setTarget:self];
     [self.switchCheck setAction:@selector(switchCheckBoxValueChanged:)];
     [self.fanRPMSlider setTarget:self];
-    [self.fanRPMSlider setAction:@selector(soundSliderValueChanged:)];
+    [self.fanRPMSlider setAction:@selector(dutySliderValueChanged:)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBLEStateChanged:) name:kNotificationNAME_BLESTATECHANGED object:nil];
     // 读取用户记录
     NSDictionary *userDefault = [[NSUserDefaults standardUserDefaults] objectForKey:@"userDefault"];
     if (userDefault != nil) {
         self.switchCheck.state = [userDefault[@"switchValue"] longValue];
         [self switchCheckBoxValueChanged:self.switchCheck];
         [self.fanRPMSlider setDoubleValue:[userDefault[@"RPMValue"] floatValue]];
-        [self soundSliderValueChanged:self.fanRPMSlider];
+        [self dutySliderValueChanged:self.fanRPMSlider];
         self.launchOnBootCheck.state = [userDefault[@"launchOnBoot"] longValue];
         [self launchOnBootCheckBoxValueChanged:self.launchOnBootCheck];
         [self.modeList selectItemAtIndex:[userDefault[@"currentMode"] longValue]];
@@ -75,6 +76,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    if ([[MKBLEManager sharedSingleton] state] >= MKBLEStateConnected) {
+        [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
+    }else{
+        [self.scanButton setImage:[NSImage imageNamed:@"mainIcon-offline"]];
+    }
     [self setupTool];
     [self.modeList setAction:@selector(modeListAction:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMode:) name:kNotificationNAME_MODECHANGED object:nil];
@@ -102,6 +108,10 @@
             self.fanRPMSlider.enabled = NO;
             break;
         }
+        case MKCoolerModeCPULoad:{
+            self.fanRPMSlider.enabled = NO;
+            break;
+        }
         case MKCoolerModeAI:{
             self.fanRPMSlider.enabled = NO;
             break;
@@ -109,6 +119,12 @@
         default:
             break;
     }
+}
+
+#pragma mark - 存储
+- (void)storeUserInfo{
+    NSDictionary *userDefault = @{@"switchValue":[NSNumber numberWithLong:self.switchCheck.state], @"RPMValue":[NSNumber numberWithFloat:self.fanRPMSlider.floatValue], @"launchOnBoot":[NSNumber numberWithLong:self.launchOnBootCheck.state], @"currentMode":[NSNumber numberWithLong:self.modeList.indexOfSelectedItem]};
+    [[NSUserDefaults standardUserDefaults] setObject:userDefault forKey:@"userDefault"];
 }
 
 #pragma mark - 开关开启关闭
@@ -120,13 +136,15 @@
         state = MKCoolerStateOff;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_STATECHANGED object:nil userInfo:@{@"state":[NSNumber numberWithLong:state]}];
+    [self storeUserInfo];
 }
 
-#pragma mark - 音量大小调节
-- (IBAction)soundSliderValueChanged:(NSSlider *)sender{
+#pragma mark - 大小调节
+- (IBAction)dutySliderValueChanged:(NSSlider *)sender{
     CGFloat volume = sender.floatValue / 100;
 //    [self.microphoneTool setVolume:volume];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_rpm":[NSString stringWithFormat:@"%d", (int)(volume * 100)]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSNumber numberWithInt:(int)(volume * 100)]}];
+    [self storeUserInfo];
 }
 
 #pragma mark - 开机启动
@@ -136,12 +154,13 @@
     }else{
         [self setLaunchOnBoot:NO];
     }
+    [self storeUserInfo];
 }
 
 #pragma mark - 退出按钮
 - (IBAction)exitButtonClicked:(NSButton *)sender {
-    NSDictionary *userDefault = @{@"switchValue":[NSNumber numberWithLong:self.switchCheck.state], @"RPMValue":[NSNumber numberWithFloat:self.fanRPMSlider.floatValue], @"launchOnBoot":[NSNumber numberWithLong:self.launchOnBootCheck.state], @"currentMode":[NSNumber numberWithLong:self.modeList.indexOfSelectedItem]};
-    [[NSUserDefaults standardUserDefaults] setObject:userDefault forKey:@"userDefault"];
+    [self storeUserInfo];
+    [[MKBLEManager sharedSingleton] stop];
     exit(0);
 }
 
@@ -149,6 +168,7 @@
 - (void)setLaunchOnBoot:(BOOL)isLaunchOnBoot{
     NSString *launchHelperIdentifier = @"com.mistak1992.mkcoolingLauncher";
     DDLogDebug(@"%d", SMLoginItemSetEnabled((__bridge CFStringRef)launchHelperIdentifier, isLaunchOnBoot));
+    [self storeUserInfo];
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification{
@@ -158,6 +178,31 @@
 - (IBAction)resetButtonClicked:(NSButton *)sender{
     MKDialogueC *c = [[NSStoryboard storyboardWithName:@"Main" bundle:nil] instantiateControllerWithIdentifier:@"MKDialogueC"];
     [c showWindow:self];
+}
+
+- (IBAction)scanButtonClicked:(id)sender{
+    MKBLEState state = [MKBLEManager sharedSingleton].state;
+    if (state == MKBLEStatePoweredOn) {
+        [[MKBLEManager sharedSingleton] start];
+    }
+}
+
+- (void)handleBLEStateChanged:(NSNotification *)notification{
+    MKBLEState state = [notification.userInfo[@"BLEState"] intValue];
+    switch (state) {
+        case MKBLEStateConnected:{
+            [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
+            self.fanRPMSlider.enabled = YES;
+            self.modeList.enabled = YES;
+            break;
+        }
+        default:{
+            [self.scanButton setImage:[NSImage imageNamed:@"mainIcon-offline"]];
+            self.fanRPMSlider.enabled = NO;
+            self.modeList.enabled = NO;
+            break;
+        }
+    }
 }
 
 @end

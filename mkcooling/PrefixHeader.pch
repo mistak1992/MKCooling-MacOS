@@ -19,6 +19,7 @@
 #import "MKPopoverVC.h"
 #import "MKDialogueVC.h"
 #import "MKDialogueC.h"
+#import "MKCpuTool.h"
 
 static const DDLogLevel ddLogLevel = DDLogLevelAll;
 
@@ -29,10 +30,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelAll;
 #define kNotificationNAME_RESIGNACTIVE @"kNotificationNAME_RESIGNACTIVE"
 #define kNotificationNAME_MODECHANGED @"kNotificationNAME_MODECHANGED"
 #define kNotificationNAME_STATECHANGED @"kNotificationNAME_STATECHANGED"
+#define kNotificationNAME_BLESTATECHANGED @"kNotificationNAME_BLESTATECHANGED"
 
 typedef NS_ENUM(NSUInteger, MKCoolerMode) {
     MKCoolerModeOff,
     MKCoolerModeSystem,
+    MKCoolerModeCPULoad,
     MKCoolerModeAI,
 };
 
@@ -41,6 +44,52 @@ typedef NS_ENUM(NSUInteger, MKCoolerState) {
     MKCoolerStateIdle,
     MKCoolerStateSleep,
     MKCoolerStateRunning,
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEProtocolHdr) {
+    MKBLEProtocolHdrTypeSend = 0x01,
+    MKBLEProtocolHdrTypeRecived = 0x10,
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEProtocolType) {
+    MKBLEProtocolTypeGetToken = 1,
+    MKBLEProtocolTypeFetchInfo,
+    MKBLEProtocolTypeSetFanDuty,
+    MKBLEProtocolTypeSetDelay,
+    MKBLEProtocolTypeInfoResponse = 0xfe,
+    MKBLEProtocolTypeResponse = 0xff,
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEProtocolRet) {
+    MKBLEProtocolRetSuccess,
+    MKBLEProtocolRetFail = 0xef,
+    MKBLEProtocolRetOther,
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEAction) {
+    MKBLEActionNone,
+    MKBLEActionGetToken,
+    MKBLEActionFetchInfo = 2,
+    MKBLEActionSetFanDuty,
+    MKBLEActionSetDelay,
+    MKBLEActionSetSwitch,
+    
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEResult) {
+    MKBLEResultSuccess,
+    MKBLEResultFail,
+    MKBLEResultBusy,
+    MKBLEResultSending,
+    MKBLEResultUnknown,
+};
+
+typedef NS_ENUM(NSUInteger, MKBLEFunction) {
+    MKBLEFunctionUnset = 0,
+    MKBLEFunctionFetchInfo = 2,
+    MKBLEFunctionSetFanDuty,
+    MKBLEFunctionSetDelay,
+    MKBLEFunctionSetSwitch,
 };
 
 #endif /* PrefixHeader_pch */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC1977DD242350AE00B66FC3 /* MKCpuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1977DC242350AE00B66FC3 /* MKCpuTool.m */; };
 		CC4D2EED23FD136F0002678D /* mkcoolingLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC4D2EF823FD154B0002678D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EEF23FD154A0002678D /* AppDelegate.m */; };
 		CC4D2EFA23FD154B0002678D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4D2EF223FD154A0002678D /* Assets.xcassets */; };
@@ -15,7 +16,6 @@
 		CC4D2F1F23FD212A0002678D /* MKMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EFF23FD21290002678D /* MKMainController.m */; };
 		CC4D2F2023FD212A0002678D /* smc.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0123FD21290002678D /* smc.m */; };
 		CC4D2F2123FD212A0002678D /* MKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0423FD21290002678D /* MKBLEManager.m */; };
-		CC4D2F2323FD212A0002678D /* MKMicrophoneTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */; };
 		CC4D2F2423FD212A0002678D /* smcWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0B23FD21290002678D /* smcWrapper.m */; };
 		CC4D2F2523FD212A0002678D /* MKConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0C23FD21290002678D /* MKConvertor.m */; };
 		CC4D2F2623FD212A0002678D /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */; };
@@ -27,6 +27,10 @@
 		CC4D2F2C23FD212A0002678D /* MKBLEDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F1B23FD21290002678D /* MKBLEDataModel.m */; };
 		CC4D2F2F23FFA4470002678D /* MKDialogueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F2E23FFA4470002678D /* MKDialogueVC.m */; };
 		CC4D2F3F23FFE74B0002678D /* MKDialogueC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */; };
+		CC5C38C8248F78CB007FF39B /* MKBLEProtocolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5C38C7248F78CB007FF39B /* MKBLEProtocolModel.m */; };
+		CC5C38CB248FBF0C007FF39B /* MKBLEDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5C38CA248FBF0C007FF39B /* MKBLEDeviceModel.m */; };
+		CCC25122244007A900156432 /* libprocInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC25120244007A900156432 /* libprocInfo.a */; };
+		CCC2512824400B1700156432 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC25125244009E000156432 /* libbsm.tbd */; };
 		CCF2B9EB23FCEEEE0007FC1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF2B9EA23FCEEEE0007FC1D /* AppDelegate.m */; };
 		CCF2B9F023FCEEEE0007FC1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9EF23FCEEEE0007FC1D /* Assets.xcassets */; };
 		CCF2B9F323FCEEEE0007FC1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */; };
@@ -74,6 +78,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CC1977DB242350AE00B66FC3 /* MKCpuTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKCpuTool.h; sourceTree = "<group>"; };
+		CC1977DC242350AE00B66FC3 /* MKCpuTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKCpuTool.m; sourceTree = "<group>"; };
 		CC4D2EEF23FD154A0002678D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CC4D2EF023FD154A0002678D /* mkcoolingLauncher.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = mkcoolingLauncher.entitlements; sourceTree = "<group>"; };
 		CC4D2EF223FD154A0002678D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,12 +95,10 @@
 		CC4D2F0423FD21290002678D /* MKBLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBLEManager.m; sourceTree = "<group>"; };
 		CC4D2F0523FD21290002678D /* MachineDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineDefaults.h; sourceTree = "<group>"; };
 		CC4D2F0723FD21290002678D /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
-		CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMicrophoneTool.m; sourceTree = "<group>"; };
 		CC4D2F0923FD21290002678D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CC4D2F0A23FD21290002678D /* smc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
 		CC4D2F0B23FD21290002678D /* smcWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smcWrapper.m; sourceTree = "<group>"; };
 		CC4D2F0C23FD21290002678D /* MKConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKConvertor.m; sourceTree = "<group>"; };
-		CC4D2F0D23FD21290002678D /* MKMicrophoneTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMicrophoneTool.h; sourceTree = "<group>"; };
 		CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		CC4D2F0F23FD21290002678D /* MKBLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBLEManager.h; sourceTree = "<group>"; };
 		CC4D2F1023FD21290002678D /* MachineDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineDefaults.m; sourceTree = "<group>"; };
@@ -113,6 +117,13 @@
 		CC4D2F2E23FFA4470002678D /* MKDialogueVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKDialogueVC.m; sourceTree = "<group>"; };
 		CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDialogueC.m; sourceTree = "<group>"; };
 		CC4D2F3E23FFE74B0002678D /* MKDialogueC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDialogueC.h; sourceTree = "<group>"; };
+		CC5C38C6248F78CB007FF39B /* MKBLEProtocolModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBLEProtocolModel.h; sourceTree = "<group>"; };
+		CC5C38C7248F78CB007FF39B /* MKBLEProtocolModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBLEProtocolModel.m; sourceTree = "<group>"; };
+		CC5C38C9248FBF0C007FF39B /* MKBLEDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBLEDeviceModel.h; sourceTree = "<group>"; };
+		CC5C38CA248FBF0C007FF39B /* MKBLEDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBLEDeviceModel.m; sourceTree = "<group>"; };
+		CCC25120244007A900156432 /* libprocInfo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprocInfo.a; sourceTree = "<group>"; };
+		CCC25121244007A900156432 /* procInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = procInfo.h; sourceTree = "<group>"; };
+		CCC25125244009E000156432 /* libbsm.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbsm.tbd; path = usr/lib/libbsm.tbd; sourceTree = SDKROOT; };
 		CCF2B9E623FCEEEE0007FC1D /* mkcooling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mkcooling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF2B9E923FCEEEE0007FC1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CCF2B9EA23FCEEEE0007FC1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -130,7 +141,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCC2512824400B1700156432 /* libbsm.tbd in Frameworks */,
 				CCF2B9FF23FCFF8B0007FC1D /* CocoaLumberjack.framework in Frameworks */,
+				CCC25122244007A900156432 /* libprocInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +161,7 @@
 		6A79CCA13CF2F64709EE3F64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCC25125244009E000156432 /* libbsm.tbd */,
 				CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */,
 			);
 			name = Frameworks;
@@ -177,6 +191,8 @@
 		CC4D2F0023FD21290002678D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CCC25120244007A900156432 /* libprocInfo.a */,
+				CCC25121244007A900156432 /* procInfo.h */,
 				CC4D2F0923FD21290002678D /* Constants.h */,
 				CC4D2F0523FD21290002678D /* MachineDefaults.h */,
 				CC4D2F1023FD21290002678D /* MachineDefaults.m */,
@@ -184,14 +200,14 @@
 				CC4D2F0423FD21290002678D /* MKBLEManager.m */,
 				CC4D2F0223FD21290002678D /* MKConvertor.h */,
 				CC4D2F0C23FD21290002678D /* MKConvertor.m */,
-				CC4D2F0D23FD21290002678D /* MKMicrophoneTool.h */,
-				CC4D2F0823FD21290002678D /* MKMicrophoneTool.m */,
 				CC4D2F0723FD21290002678D /* NSFileManager+DirectoryLocations.h */,
 				CC4D2F0E23FD21290002678D /* NSFileManager+DirectoryLocations.m */,
 				CC4D2F0A23FD21290002678D /* smc.h */,
 				CC4D2F0123FD21290002678D /* smc.m */,
 				CC4D2F0323FD21290002678D /* smcWrapper.h */,
 				CC4D2F0B23FD21290002678D /* smcWrapper.m */,
+				CC1977DB242350AE00B66FC3 /* MKCpuTool.h */,
+				CC1977DC242350AE00B66FC3 /* MKCpuTool.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -208,6 +224,10 @@
 				CC4D2F1923FD21290002678D /* MKDataController.h */,
 				CC4D2F1323FD21290002678D /* MKDataController.m */,
 				CC4D2F1623FD21290002678D /* MKPersistData.xcdatamodeld */,
+				CC5C38C6248F78CB007FF39B /* MKBLEProtocolModel.h */,
+				CC5C38C7248F78CB007FF39B /* MKBLEProtocolModel.m */,
+				CC5C38C9248FBF0C007FF39B /* MKBLEDeviceModel.h */,
+				CC5C38CA248FBF0C007FF39B /* MKBLEDeviceModel.m */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -366,8 +386,8 @@
 				CC4D2F2B23FD212A0002678D /* MKPersistData.xcdatamodeld in Sources */,
 				CC4D2F2A23FD212A0002678D /* MKBLEDataPresistModel+CoreDataProperties.m in Sources */,
 				CC4D2F2F23FFA4470002678D /* MKDialogueVC.m in Sources */,
-				CC4D2F2323FD212A0002678D /* MKMicrophoneTool.m in Sources */,
 				CC4D2F2523FD212A0002678D /* MKConvertor.m in Sources */,
+				CC5C38C8248F78CB007FF39B /* MKBLEProtocolModel.m in Sources */,
 				CC4D2F1E23FD212A0002678D /* MKPopoverVC.m in Sources */,
 				CC4D2F2423FD212A0002678D /* smcWrapper.m in Sources */,
 				CC4D2F3F23FFE74B0002678D /* MKDialogueC.m in Sources */,
@@ -376,9 +396,11 @@
 				CC4D2F1F23FD212A0002678D /* MKMainController.m in Sources */,
 				CC4D2F2123FD212A0002678D /* MKBLEManager.m in Sources */,
 				CC4D2F2023FD212A0002678D /* smc.m in Sources */,
+				CC5C38CB248FBF0C007FF39B /* MKBLEDeviceModel.m in Sources */,
 				CC4D2F2923FD212A0002678D /* MKDataController.m in Sources */,
 				CC4D2F2C23FD212A0002678D /* MKBLEDataModel.m in Sources */,
 				CCF2B9F623FCEEEE0007FC1D /* main.m in Sources */,
+				CC1977DD242350AE00B66FC3 /* MKCpuTool.m in Sources */,
 				CCF2B9EB23FCEEEE0007FC1D /* AppDelegate.m in Sources */,
 				CC4D2F2723FD212A0002678D /* MachineDefaults.m in Sources */,
 			);
@@ -531,6 +553,7 @@
 				CODE_SIGN_ENTITLEMENTS = mkcooling/mkcooling.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DGEEC9F576;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -541,6 +564,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mkcooling/Utils",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -554,6 +581,7 @@
 				CODE_SIGN_ENTITLEMENTS = mkcooling/mkcooling.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DGEEC9F576;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -564,6 +592,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mkcooling/Utils",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -577,6 +609,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/mkcoolingLauncher/mkcoolingLauncher.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DGEEC9F576;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -587,6 +620,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mkcooling/Utils",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -600,6 +637,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/mkcoolingLauncher/mkcoolingLauncher.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DGEEC9F576;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -610,6 +648,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mkcooling/Utils",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mistak1992.mkcooling;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -93,7 +93,7 @@ static MKDataController *controller = nil;
     m.system_fan_rpm = [smcWrapper get_fan_rpm:0];
     m.system_cpu_temp = [smcWrapper get_maintemp];
     NSError *error = nil;
-//    NSLog(@"%@ %d", m, [self isUpdateCompelete:model]);
+    DDLogDebug(@"%@ %d", m, [self isUpdateCompelete:model]);
     if ([self isUpdateCompelete:model] == YES) {
         return [_managedObjectContext save:&error];
     }else{

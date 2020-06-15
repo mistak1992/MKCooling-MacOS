@@ -8,6 +8,8 @@
 
 #import "MKBLEDataModel.h"
 
+#import "MKConvertor.h"
+
 @implementation MKBLEDataModel
 
 //将对象编码(即:序列化)
@@ -39,6 +41,17 @@
         self.auth_key = [coder decodeIntegerForKey:@"auth_key"];
     }
     return (self);
+}
+
+- (void)setDataModelWithRawData:(NSData *)rawData{
+    if (rawData.length == 8) {
+        self.ir_tempo_int = (int)[[rawData subdataWithRange:NSMakeRange(0, 1)] bytes];
+        self.ir_tempo_dec = (int)[[rawData subdataWithRange:NSMakeRange(1, 1)] bytes];
+        self.ir_tempa_int = (int)[[rawData subdataWithRange:NSMakeRange(2, 1)] bytes];
+        self.ir_tempa_dec = (int)[[rawData subdataWithRange:NSMakeRange(3, 1)] bytes];
+        self.fan_percentage = (int)[[rawData subdataWithRange:NSMakeRange(4, 1)] bytes];
+        self.fan_rpm = (int)[[rawData subdataWithRange:NSMakeRange(5, 2)] bytes];
+    }
 }
 
 @end

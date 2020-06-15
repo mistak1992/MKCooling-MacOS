@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger auth_key;
 
+- (void)setDataModelWithRawData:(NSData *)rawData;
+
 @end
 
 NS_ASSUME_NONNULL_END

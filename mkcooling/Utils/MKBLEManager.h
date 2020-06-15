@@ -10,32 +10,26 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
+#import "MKBLEDeviceModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MKC_UUID_IDX) {
-    MKC_UUID_IDX_SV = 10896,
-    MKC_UUID_IDX_TEMP_INT,
-    MKC_UUID_IDX_TEMP_DEC,
-    MKC_UUID_IDX_IR_TEMPO_INT,
-    MKC_UUID_IDX_IR_TEMPO_DEC,
-    MKC_UUID_IDX_IR_TEMPA_INT,
-    MKC_UUID_IDX_IR_TEMPA_DEC,
-    MKC_UUID_IDX_FAN_RPM,
-    MKC_UUID_IDX_FAN_PERCENTAGE,
-    MKC_UUID_IDX_IR_SWITCH,
-    MKC_UUID_IDX_AUTH_KEY,
+    MKC_UUID_IDX_SV = 6288,
+    MKC_UUID_IDX_WRITE_IN,
     MKC_UUID_IDX_NB
 };
 
-typedef NS_ENUM(NSUInteger, MKBLEState) {
+typedef NS_ENUM(NSInteger, MKBLEState) {
     MKBLEStateUnknown = 0,
     MKBLEStateResetting,
     MKBLEStateUnsupported,
     MKBLEStateeUnauthorized,
     MKBLEStatePoweredOff,
     MKBLEStatePoweredOn,
+    MKBLEStateScanning,
+    MKBLEStateConnecting,
     MKBLEStateConnected,
-    MKBLEStateStandby,
 };
 
 @class MKBLEManager;
@@ -44,7 +38,19 @@ typedef NS_ENUM(NSUInteger, MKBLEState) {
 
 - (void)manager:(MKBLEManager *)manager didUpdateState:(MKBLEState)state;
 
-- (void)manager:(MKBLEManager *)manager didUpdateValue:(NSInteger)value forIndex:(MKC_UUID_IDX)index;
+- (void)manager:(MKBLEManager *)manager didDiscoveredDevices:(NSArray<MKBLEDeviceModel *> *)devices;
+
+- (void)manager:(MKBLEManager *)manager result:(MKBLEResult)result ofDeviceModel:(MKBLEDeviceModel *)deviceModel forFunction:(MKBLEFunction)function withResponseData:(nullable NSData *)data;
+
+- (NSDictionary *)manager:(MKBLEManager *)manager userInfoForFuntion:(MKBLEFunction)function;
+
+@end
+
+@protocol MKBLEManagerDatasource <NSObject>
+
+- (NSArray<MKBLEDeviceModel *> *)retrievePeripheralsWithDeviceModelsForManager:(MKBLEManager *)manager;
+
+- (void)manager:(MKBLEManager *)manager persistPeripheralWithDeviceModel:(MKBLEDeviceModel *)deviceModel;
 
 @end
 
@@ -52,7 +58,17 @@ typedef NS_ENUM(NSUInteger, MKBLEState) {
 
 @property (nonatomic, weak) id<MKBLEManagerDelegate> delegate;
 
+@property (nonatomic, weak) id<MKBLEManagerDatasource> datasource;
+
 @property (nonatomic, assign) NSInteger interval;
+
+@property (nonatomic, assign) MKBLEState state;
+
+@property (nonatomic, strong, readonly) NSMutableArray<NSString *> *whiteList;
+
+@property (nonatomic, strong, readonly) NSArray<MKBLEDeviceModel *> *discoveredDevices;
+
+@property (nonatomic, assign) BOOL isNeedDisconnectAfterCommunication;
 
 + (instancetype)sharedSingleton;
 
@@ -68,11 +84,7 @@ typedef NS_ENUM(NSUInteger, MKBLEState) {
 
 - (void)stop;
 
-- (void)setDataAtIdx:(MKC_UUID_IDX)uuid_idx value:(NSInteger)value;
-
-- (void)getDataAtIdx:(MKC_UUID_IDX)uuid_idx;
-
-- (void)getDatas;
+- (MKBLEResult)setDevice:(MKBLEDeviceModel *)deviceModel forFunction:(MKBLEFunction)function;
 
 - (void)resetConnection;
 

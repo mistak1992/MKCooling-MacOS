@@ -12,7 +12,9 @@
 
 #import "smcWrapper.h"
 
-@interface MKMainController () <MKBLEManagerDelegate>
+#import "procInfo.h"
+
+@interface MKMainController () <MKBLEManagerDelegate, MKBLEManagerDatasource>
 // 状态栏
 @property (nonatomic, strong) NSStatusItem *statusBar;
 // 弹出窗
@@ -33,6 +35,8 @@
 @property (nonatomic, assign) int systemModeFanMin;
 
 @property (nonatomic, assign) int systemModeFanMax;
+
+@property (nonatomic, assign) CGFloat currentFanDuty;
 
 @property (nonatomic, assign) MKBLEState BLEState;
 
@@ -60,9 +64,9 @@
         return;
     }
     _counter = _interval;
-    if (_BLEState != MKBLEStateStandby) {
-        return;
-    }
+//    if (_BLEState != MKBLEStateStandby) {
+//        return;
+//    }
 //    // 旧的
 //    if ([[MKDataController sharedSingleton] saveBLEModel:self.model] == YES) {
 //        self.model = [[MKDataController sharedSingleton] getBLEModel];
@@ -109,7 +113,28 @@
                     if (percentage < 0) {
                         percentage = 0;
                     }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_rpm":[NSString stringWithFormat:@"%d", (int)(percentage * 100)]}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)(percentage * 100)]}];
+//                    self.currentFanDuty = percentage;
+                    break;
+                }
+                case MKCoolerModeCPULoad:{
+                    //获取CPU负载
+                    
+//                    NSArray *temp = [[MKCpuTool sharedSingleton] getCPULoadRecords];
+                    CGFloat cpuLoad = [MKCpuTool getCPULoadMax];
+                    // +-一成范围内不变
+                    if (cpuLoad <= self.currentFanDuty + 0.1 && cpuLoad >= self.currentFanDuty - 0.1) {
+                        cpuLoad = self.currentFanDuty;
+                    }
+                    // 慢下降
+                    if (cpuLoad < self.currentFanDuty - 0.1) {
+                        cpuLoad -= 0.05;
+                    }
+                    if (cpuLoad < 0) {
+                        cpuLoad = 0;
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)(cpuLoad * 100)]}];
+//                    self.currentFanDuty = cpuLoad;
                     break;
                 }
                 case MKCoolerModeAI:{
@@ -144,7 +169,12 @@
     if (_statusBar == nil) {
         // 设置状态栏
         _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-        _statusBar.image = [NSImage imageNamed:@"statusBarIconDark"];
+        if (@available(macOS 10.14, *)) {
+            _statusBar.button.image = [NSImage imageNamed:@"statusBarIconDark"];
+        }else{
+            _statusBar.image = [NSImage imageNamed:@"statusBarIconDark"];
+        }
+        
         [_statusBar.button setTarget:self];
     }
     return _statusBar;
@@ -164,14 +194,18 @@
 - (void)needUpdateBLEData:(NSNotification *)notification{
     NSDictionary *dic = notification.userInfo;
     [[dic allKeys] enumerateObjectsUsingBlock:^(NSString * keyName, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([keyName isEqualToString:@"fan_rpm"] == YES) {
-            [self setBLEData:dic[@"fan_rpm"]];
+        if ([keyName isEqualToString:@"fan_duty"] == YES) {
+            self.currentFanDuty = [dic[@"fan_duty"] integerValue];
+            [self setBLEData:dic[@"fan_duty"]];
         }
     }];
 }
 
 - (void)setBLEData:(NSString *)valueStr{
-    [[MKBLEManager sharedSingleton] setDataAtIdx:MKC_UUID_IDX_FAN_PERCENTAGE value:valueStr.integerValue];
+    if ([MKBLEManager sharedSingleton].discoveredDevices.count == 1) {
+        [[MKBLEManager sharedSingleton] setDevice:[MKBLEManager sharedSingleton].discoveredDevices.firstObject forFunction:MKBLEFunctionSetFanDuty];
+    }
+    
 }
 
 - (instancetype)init{
@@ -186,13 +220,15 @@
 #pragma mark - 设置数据库
 - (void)setupCoreData{
     [MKDataController sharedSingleton];
-    self.interval = 2;
-    [MKBLEManager sharedSingleton].delegate = self;
     self.model = [[MKDataController sharedSingleton] getBLEModel];
 }
 
 #pragma mark - 设置界面
 - (void)setup{
+    self.interval = 2;
+    [MKBLEManager sharedSingleton].delegate = self;
+    [MKBLEManager sharedSingleton].datasource = self;
+    [[MKBLEManager sharedSingleton].whiteList addObject:@"3c71bf5933ca"];
     // 加载状态栏
     [self.statusBar.button setAction:@selector(statusBarButtonClick:)];
     // 设置弹出窗口
@@ -225,23 +261,36 @@
     NSDictionary *userDefault = [[NSUserDefaults standardUserDefaults] objectForKey:@"userDefault"];
     if (userDefault != nil) {
         [self setMode:[userDefault[@"currentMode"] longValue]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_rpm":[NSString stringWithFormat:@"%d", (int)([userDefault[@"RPMValue"] floatValue] * 100)]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)([userDefault[@"RPMValue"] floatValue] * 100)]}];
     }
+    //
+    ProcInfo* procInfo = [[ProcInfo alloc] init:NO];
+//    NSLog(@"%@", [procInfo currentProcesses]);
+    
 }
 
-- (void)manager:(MKBLEManager *)manager didUpdateValue:(NSInteger)value forIndex:(MKC_UUID_IDX)index{
-    [self setValueWithUUIDIdx:index value:value];
-}
+//- (void)manager:(MKBLEManager *)manager didUpdateValue:(NSInteger)value forIndex:(MKC_UUID_IDX)index{
+//    [self setValueWithUUIDIdx:index value:value];
+//}
 
 - (void)manager:(MKBLEManager *)manager didUpdateState:(MKBLEState)state{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_BLESTATECHANGED object:nil userInfo:@{@"BLEState":[NSNumber numberWithInt:(int)state]}];
     _BLEState = state;
     switch (state) {
         case MKBLEStatePoweredOn:{
-            [manager start];
+            if (_isWakeUp == YES) {
+                _isWakeUp = NO;
+                [manager start];
+            }
             break;
         }
-        case MKBLEStateStandby:{
+        case MKBLEStateConnected:{
             [self.timer setFireDate:[NSDate distantPast]];
+//            if (manager.discoveredDevices.count == 1) {
+//                NSLog(@"请求状态");
+////                self.state ==
+////                [manager setDevice:manager.discoveredDevices.firstObject forFunction:MKBLEFunctionFetchInfo];
+//            }
             break;
         }
         default:
@@ -251,6 +300,87 @@
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [manager setDataAtIdx:MKC_UUID_IDX_FAN_PERCENTAGE value:100];
 //    });
+}
+
+- (void)manager:(MKBLEManager *)manager didDiscoveredDevices:(NSArray<MKBLEDeviceModel *> *)devices{
+    if (devices.count == 1) {
+        DDLogInfo(@"found 1 and state%ld", (long)manager.state);
+        if (manager.state == MKBLEStateScanning || manager.state == MKBLEStatePoweredOn) {
+            [manager setDevice:devices.firstObject forFunction:MKBLEFunctionFetchInfo];
+        }
+    }
+}
+
+- (void)manager:(MKBLEManager *)manager result:(MKBLEResult)result ofDeviceModel:(MKBLEDeviceModel *)deviceModel forFunction:(MKBLEFunction)function withResponseData:(nullable NSData *)data{
+    if (data.length > 0) {
+        [self.model setDataModelWithRawData:data];
+        NSLog(@"%@", self.model);
+    }
+}
+
+- (NSDictionary *)manager:(MKBLEManager *)manager userInfoForFuntion:(MKBLEFunction)function{
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    switch (function) {
+        case MKBLEFunctionSetFanDuty:{
+            [userInfo setObject:[NSNumber numberWithInt:(int)_currentFanDuty] forKey:@"fanDuty"];
+//            [userInfo setDictionary:@{@"fanDuty":[NSNumber numberWithInt:(int)_currentFanDuty]}];
+            break;
+        }
+        case MKBLEFunctionSetDelay:{
+            
+            break;
+        }
+        case MKBLEFunctionSetSwitch:{
+            
+        }
+        default:
+            break;
+    }
+    return userInfo.copy;
+}
+
+- (NSArray<MKBLEDeviceModel *> *)retrievePeripheralsWithDeviceModelsForManager:(MKBLEManager *)manager{
+    NSArray *storedDatas = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+//    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"StoredDevices"];
+    NSMutableArray *storedDevices = [NSMutableArray array];
+    for (NSData *data in storedDatas) {
+        MKBLEDeviceModel *deviceModel = nil;
+        if (@available(macOS 10.13, *)) {
+            deviceModel = [NSKeyedUnarchiver unarchivedObjectOfClass:[MKBLEDeviceModel class] fromData:data error:nil];
+        } else {
+            // Fallback on earlier versions
+            deviceModel = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }
+        [storedDevices addObject:deviceModel];
+    }
+    return storedDevices.copy;
+}
+
+- (void)manager:(MKBLEManager *)manager persistPeripheralWithDeviceModel:(nonnull MKBLEDeviceModel *)deviceModel{
+    NSArray *storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+    NSMutableArray *newDevices = nil;
+    if (![storedDevices isKindOfClass:[NSArray class]]) {
+        DDLogError(@"Can't find/create an array to store the uuid");
+    }
+    newDevices = [NSMutableArray arrayWithArray:storedDevices];
+    if ([deviceModel isKindOfClass:[MKBLEDeviceModel class]] == YES) {
+        [newDevices removeAllObjects];
+        NSData *deviceData;
+        if (@available(macOS 10.13, *)) {
+            NSError *err;
+            deviceData = [NSKeyedArchiver archivedDataWithRootObject:deviceModel requiringSecureCoding:YES error:&err];
+            if (err != nil) {
+                NSLog(@"%@", err);
+            }
+        } else {
+            // Fallback on earlier versions
+            deviceData = [NSKeyedArchiver archivedDataWithRootObject:deviceModel];
+        }
+        [newDevices addObject:deviceData];
+    }
+    /* Store */
+    [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)popUpButtonAction:(NSNotification *)notification{
@@ -300,108 +430,12 @@
         }
         case MKCoolerStateOff:{
             [self.timer setFireDate:[NSDate distantFuture]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_rpm":[NSString stringWithFormat:@"%d", 0]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", 0]}];
             break;
         }
         default:
             break;
     }
-}
-
-- (void)setValueWithUUIDIdx:(MKC_UUID_IDX)uuid_idx value:(NSInteger)value{
-    switch (uuid_idx) {
-        case MKC_UUID_IDX_TEMP_INT:{
-            self.model.temp_int = value;
-            break;
-        }
-        case MKC_UUID_IDX_TEMP_DEC:{
-            self.model.temp_dec = value;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPO_INT:{
-            self.model.ir_tempo_int = value;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPO_DEC:{
-            self.model.ir_tempo_dec = value;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPA_INT:{
-            self.model.ir_tempa_int = value;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPA_DEC:{
-            self.model.ir_tempa_dec = value;
-            break;
-        }
-        case MKC_UUID_IDX_FAN_RPM:{
-            self.model.fan_rpm = value;
-            break;
-        }
-        case MKC_UUID_IDX_FAN_PERCENTAGE:{
-            self.model.fan_percentage = value;
-            break;
-        }
-        case MKC_UUID_IDX_IR_SWITCH:{
-            self.model.ir_switch = value;
-            break;
-        }
-        case MKC_UUID_IDX_AUTH_KEY:{
-            self.model.auth_key = value;
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-- (NSInteger)getValueWithUUID:(MKC_UUID_IDX)uuid_idx{
-    NSInteger data = 0;
-    switch (uuid_idx) {
-        case MKC_UUID_IDX_TEMP_INT:{
-            data = self.model.temp_int;
-            break;
-        }
-        case MKC_UUID_IDX_TEMP_DEC:{
-            data = self.model.temp_dec;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPO_INT:{
-            data = self.model.ir_tempo_int;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPO_DEC:{
-            data = self.model.ir_tempo_dec;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPA_INT:{
-            data = self.model.ir_tempa_int;
-            break;
-        }
-        case MKC_UUID_IDX_IR_TEMPA_DEC:{
-            data = self.model.ir_tempa_int;
-            break;
-        }
-        case MKC_UUID_IDX_FAN_RPM:{
-            data = self.model.fan_rpm;
-            break;
-        }
-        case MKC_UUID_IDX_FAN_PERCENTAGE:{
-            data = self.model.fan_percentage;
-            break;
-        }
-        case MKC_UUID_IDX_IR_SWITCH:{
-            data = self.model.ir_switch;
-            break;
-        }
-        case MKC_UUID_IDX_AUTH_KEY:{
-            data = self.model.auth_key;
-            break;
-        }
-        default:
-            break;
-    }
-    return data;
 }
 
 @end

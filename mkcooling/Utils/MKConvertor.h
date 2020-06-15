@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSInteger)numberWithHexString:(NSString *)hexString;
 
++ (NSString *)hexStringFromData:(NSData *)data;
+
++ (NSData*)dataForHexString:(NSString *)hexString;
+
 @end
 
 NS_ASSUME_NONNULL_END

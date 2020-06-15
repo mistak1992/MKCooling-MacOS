@@ -12,5 +12,7 @@
 
 @property (nonatomic, assign) MKCoolerState state;
 
+@property (nonatomic, assign) BOOL isWakeUp;
+
 @end
 
