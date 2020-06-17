@@ -12,13 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKConvertor : NSObject
 
-+ (NSString *)stringWithHexNumber:(NSUInteger)hexNumber;
-
-+ (NSInteger)numberWithHexString:(NSString *)hexString;
-
 + (NSString *)hexStringFromData:(NSData *)data;
 
 + (NSData*)dataForHexString:(NSString *)hexString;
+
++ (NSString *)stringWithHexNumber:(NSUInteger)hexNumber stringLen:(NSInteger)len;
+
++ (NSInteger)numberWithHexString:(NSString *)hexString;
+
++ (NSUInteger)numberWithUnsignData:(NSData *)data;
 
 @end
 

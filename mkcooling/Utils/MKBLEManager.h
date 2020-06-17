@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, MKC_UUID_IDX) {
     MKC_UUID_IDX_NB
 };
 
-typedef NS_ENUM(NSInteger, MKBLEState) {
+typedef NS_ENUM(NSUInteger, MKBLEState) {
     MKBLEStateUnknown = 0,
     MKBLEStateResetting,
     MKBLEStateUnsupported,
@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, MKBLEState) {
     MKBLEStateScanning,
     MKBLEStateConnecting,
     MKBLEStateConnected,
+    MKBLEStateCommucating,
 };
 
 @class MKBLEManager;

@@ -10,20 +10,6 @@
 
 @implementation MKConvertor
 
-+ (NSString *)stringWithHexNumber:(NSUInteger)hexNumber{
-    char hexChar[6];
-    sprintf(hexChar, "%x", (int)hexNumber);
-    NSString *hexString = [NSString stringWithCString:hexChar encoding:NSUTF8StringEncoding];
-    return hexString;
-}
-
-+ (NSInteger)numberWithHexString:(NSString *)hexString{
-    const char *hexChar = [hexString cStringUsingEncoding:NSUTF8StringEncoding];
-    int hexNumber;
-    sscanf(hexChar, "%x", &hexNumber);
-    return (NSInteger)hexNumber;
-}
-
 /// text2HexString
 /// @param data text
 + (NSString *)hexStringFromData:(NSData *)data{
@@ -79,6 +65,34 @@
         [data appendBytes:&byte length:1];
     }
     return data;
+}
+
++ (NSString *)stringWithHexNumber:(NSUInteger)hexNumber stringLen:(NSInteger)len{
+    char hexChar[len];
+    sprintf(hexChar, "%x", (int)hexNumber);
+    NSString *hexString = [NSString stringWithCString:hexChar encoding:NSUTF8StringEncoding];
+    return hexString;
+}
+
++ (NSInteger)numberWithHexString:(NSString *)hexString{
+    const char *hexChar = [hexString cStringUsingEncoding:NSUTF8StringEncoding];
+    int hexNumber;
+    sscanf(hexChar, "%x", &hexNumber);
+    return (NSInteger)hexNumber;
+}
+
++ (NSUInteger)numberWithUnsignData:(NSData *)data{
+    NSInteger result = 0;
+    if (data.length > 2) {
+        return 0;
+    }else{
+        uint8_t buff = 0;
+        for (NSInteger i = data.length - 1; i >= 0; --i) {
+            [[data subdataWithRange:NSMakeRange(i, 1)] getBytes:&buff length:sizeof(buff)];
+            result += buff << (8 * (data.length - i - 1));
+        }
+    }
+    return result;
 }
 
 @end

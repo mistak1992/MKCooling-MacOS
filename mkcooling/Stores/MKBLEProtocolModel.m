@@ -34,14 +34,14 @@ static NSData *currentToken;
     MKBLEProtocolModel *model = [MKBLEProtocolModel new];
 //    NSData *data = [MKCryptoTools AES128DecryptData:rawData key:[MKCryptoTools dataForHexString:@"E452B0D58FA946639B422393FF2AA5B4"]];
     NSData *data = rawData;
-    model.hdr = [[MKConvertor hexStringFromData:[data subdataWithRange:NSMakeRange(0, 2)]] integerValue];
-    model.typ = [[MKConvertor hexStringFromData:[data subdataWithRange:NSMakeRange(2, 1)]] integerValue];
-    model.len = [[MKConvertor hexStringFromData:[data subdataWithRange:NSMakeRange(3, 1)]] integerValue];
-    model.data = [data subdataWithRange:NSMakeRange(4, model.len)];
+    model.hdr = [MKConvertor numberWithUnsignData:[data subdataWithRange:NSMakeRange(0, 1)]];
+    model.typ = [MKConvertor numberWithUnsignData:[data subdataWithRange:NSMakeRange(1, 1)]];
+    model.len = [MKConvertor numberWithUnsignData:[data subdataWithRange:NSMakeRange(2, 1)]];
+    model.data = [data subdataWithRange:NSMakeRange(3, model.len)];
     switch (model.typ) {
         case MKBLEProtocolTypeGetToken:{
             model.token = model.data;
-            model.pck = [data subdataWithRange:NSMakeRange(4 + model.len, 1)];
+            model.pck = [data subdataWithRange:NSMakeRange(3 + model.len, 1)];
             break;
         }
         case MKBLEProtocolTypeFetchInfo:{
@@ -92,8 +92,8 @@ static NSData *currentToken;
     [composeDatas appendData:model.token];
     [composeDatas appendData:model.pck];
     for (NSUInteger i = [composeDatas length]; i < 16; ++i) {
-        Byte b = {'0'};
-        [composeDatas appendBytes:&b length:1];
+        uint8_t byte = arc4random_uniform(255);
+        [composeDatas appendBytes:&byte length:sizeof(byte)];
     }
 //    NSData *keyk = [MKConvertor dataForHexString:@"E452B0D58FA946639B422393FF2AA5B4"];
 //    NSData *rawData = [MKConvertor AES128EncryptData:composeDatas key:keyk];// [MKCryptoTools dataForHexString:@"475301002D1A683D48271A18316E471A"]
@@ -131,7 +131,6 @@ static NSData *currentToken;
         }
         case MKBLEActionSetDelay:{
             model.typ = MKBLEActionSetDelay;
-            model.data = [NSData new];
             break;
         }
         default:

@@ -12,6 +12,8 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#define kDEFAULT_MAX_FETCHINFO_DELAY 5
+
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "MKBLEDataPresistModel+CoreDataClass.h"
 #import "MKBLEDataModel.h"
@@ -20,6 +22,7 @@
 #import "MKDialogueVC.h"
 #import "MKDialogueC.h"
 #import "MKCpuTool.h"
+#import "MKDate.h"
 
 static const DDLogLevel ddLogLevel = DDLogLevelAll;
 
@@ -56,6 +59,7 @@ typedef NS_ENUM(NSUInteger, MKBLEProtocolType) {
     MKBLEProtocolTypeFetchInfo,
     MKBLEProtocolTypeSetFanDuty,
     MKBLEProtocolTypeSetDelay,
+    MKBLEProtocolTypeSetSwitch,
     MKBLEProtocolTypeInfoResponse = 0xfe,
     MKBLEProtocolTypeResponse = 0xff,
 };
@@ -72,8 +76,6 @@ typedef NS_ENUM(NSUInteger, MKBLEAction) {
     MKBLEActionFetchInfo = 2,
     MKBLEActionSetFanDuty,
     MKBLEActionSetDelay,
-    MKBLEActionSetSwitch,
-    
 };
 
 typedef NS_ENUM(NSUInteger, MKBLEResult) {
@@ -89,7 +91,6 @@ typedef NS_ENUM(NSUInteger, MKBLEFunction) {
     MKBLEFunctionFetchInfo = 2,
     MKBLEFunctionSetFanDuty,
     MKBLEFunctionSetDelay,
-    MKBLEFunctionSetSwitch,
 };
 
 #endif /* PrefixHeader_pch */

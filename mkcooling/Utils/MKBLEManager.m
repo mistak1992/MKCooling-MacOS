@@ -203,12 +203,6 @@ static MKBLEManager *mgr = nil;
     NSString *manufaceturerHexStr = [[MKConvertor hexStringFromData:manufacturerData] lowercaseString];
     if ([manufaceturerHexStr length] > 8 && [[manufaceturerHexStr substringWithRange:NSMakeRange(0, 8)] isEqualToString:@"4d4b0001"] == YES) {
         DDLogVerbose(@"广播数据:%@", advertisementData);
-//        self.peripheral = peripheral;
-//        [self.centralManager connectPeripheral:peripheral options:@{}];
-//        self.state = MKBLEStateConnecting;
-//        if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
-//            [self.delegate manager:self didUpdateState:MKBLEStateConnecting];
-//        }
         MKBLEDeviceModel *model = [[MKBLEDeviceModel alloc] initWithManufactureData:manufacturerData andUUIDString:peripheral.identifier.UUIDString];
         // 获取big endian比较
         NSMutableData *macDatas = [MKConvertor dataForHexString:model.mac].mutableCopy;
@@ -235,9 +229,11 @@ static MKBLEManager *mgr = nil;
     }
     self.connectingDevice.peripheral.delegate = self;
     [peripheral discoverServices:@[]];
-    self.state = MKBLEStateConnected;
-    if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
-        [self.delegate manager:self didUpdateState:MKBLEStateConnected];
+    if (_state >= MKBLEStateConnected) {
+        self.state = MKBLEStateConnected;
+        if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
+            [self.delegate manager:self didUpdateState:MKBLEStateConnected];
+        }
     }
 //    if (@available(macOS 10.13, *)) {
 //
@@ -288,8 +284,9 @@ static MKBLEManager *mgr = nil;
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
     for (CBCharacteristic *characteristic in service.characteristics) {
         if ([[characteristic.UUID.UUIDString uppercaseString] containsString:@"1891"] == YES) {
-    //            [peripheral readValueForCharacteristic:characteristic];
-            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            if (characteristic.isNotifying == NO) {
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            }
             if (self.action != MKBLEActionNone) {
                 //request data
                 NSDictionary *userInfo = nil;
@@ -312,9 +309,10 @@ static MKBLEManager *mgr = nil;
                         break;
                     }
                     case MKBLEActionSetDelay:{
-                        break;
-                    }
-                    case MKBLEActionSetSwitch:{
+                        if (userInfo != nil && [[userInfo allKeys] containsObject:@"delay"] == YES) {
+                            uint8_t fan_duty = (uint8_t)[userInfo[@"delay"] intValue];
+                            model.data = [NSData dataWithBytes:&fan_duty length:sizeof(fan_duty)];
+                        }
                         break;
                     }
                     default:
@@ -336,9 +334,11 @@ static MKBLEManager *mgr = nil;
     }
 }
 
+#pragma mark - recived notification
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    DDLogInfo(@"recived notification");
     if (error != nil) {
-        //DDLogInfo(@"%@", error);
+        DDLogInfo(@"%@", error);
         self.state = MKBLEStatePoweredOn;
         if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
             [self.delegate manager:self didUpdateState:MKBLEStatePoweredOn];
@@ -353,12 +353,13 @@ static MKBLEManager *mgr = nil;
 //        [self.delegate manager:mgr didUpdateValue:i forIndex:[MKConvertor numberWithHexString:characteristic.UUID.UUIDString]];
 //    }
     [self actionForCharacteristic:characteristic value:characteristic.value];
-    NSLog(@"上传完成");
 }
 
+#pragma mark - write callback
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    DDLogInfo(@"write success");
     if (error != nil) {
-        //DDLogError(@"%@", error);
+        DDLogInfo(@"%@", error);
         self.state = MKBLEStatePoweredOn;
         if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
             [self.delegate manager:self didUpdateState:MKBLEStatePoweredOn];
@@ -367,7 +368,6 @@ static MKBLEManager *mgr = nil;
     }
     // 收到回复
     [self actionForCharacteristic:characteristic value:characteristic.value];
-    NSLog(@"读取完成");
 }
 
 - (void)addSavedDevice:(MKBLEDeviceModel *)deviceModel{
@@ -442,7 +442,7 @@ static MKBLEManager *mgr = nil;
 }
 
 - (MKBLEResult)setDevice:(MKBLEDeviceModel *)deviceModel forFunction:(MKBLEFunction)function{
-    if (_state == MKBLEStateConnecting) {
+    if (_state == MKBLEStateCommucating || _state == MKBLEStateConnecting) {
         return MKBLEResultBusy;
     }
     //NSLog(@"开锁操作");
@@ -451,11 +451,6 @@ static MKBLEManager *mgr = nil;
     MKBLEGeneralModel *gModel = [temp firstObject];
     self.connectingDevice = gModel;
     //NSLog(@"要连接的设备:%@", self.connectingDevice);
-    if (self.connectingDevice.peripheral.state == CBPeripheralStateConnected) {
-        self.state = MKBLEStateConnected;
-    }else{
-        self.state = MKBLEStateConnecting;
-    }
     switch (function) {
         case MKBLEFunctionSetFanDuty:
             self.action = MKBLEActionSetFanDuty;
@@ -466,23 +461,26 @@ static MKBLEManager *mgr = nil;
         case MKBLEFunctionSetDelay:
             self.action = MKBLEActionSetDelay;
             break;
-        case MKBLEFunctionSetSwitch:
-            self.action = MKBLEActionSetSwitch;
-            break;
         default:
             self.action = MKBLEActionFetchInfo;
             break;
     }
-    dispatch_semaphore_signal(semaphore);
-    if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
-        [self.delegate manager:self didUpdateState:_state];
-    }
+    
     [self actionForBeginCommunication];
     if (_state == MKBLEStateConnected) {
         [self.connectingDevice.peripheral discoverServices:@[]];
     }else{
-        [_centralManager connectPeripheral:gModel.peripheral options:nil];
+        [_centralManager connectPeripheral:gModel.peripheral options:@{CBConnectPeripheralOptionNotifyOnNotificationKey:@true}];
     }
+    if (self.connectingDevice.peripheral.state == CBPeripheralStateConnected) {
+        self.state = MKBLEStateCommucating;
+    }else{
+        self.state = MKBLEStateConnecting;
+    }
+    if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
+        [self.delegate manager:self didUpdateState:_state];
+    }
+    dispatch_semaphore_signal(semaphore);
     return MKBLEResultSending;
 }
 
@@ -492,7 +490,7 @@ static MKBLEManager *mgr = nil;
         return;
     }
     MKBLEProtocolModel *m = [MKBLEProtocolTool decodeProtocolWithRawData:rawValue];
-    //NSLog(@"\n%@\n%@", rawValue, m.description);
+//    NSLog(@"%@\n", m);
     switch (m.typ) {
         case MKBLEProtocolTypeGetToken:{
             //NSLog(@"获取Token成功");
@@ -504,6 +502,7 @@ static MKBLEManager *mgr = nil;
                 [self actionForTimeoutOn];
                 // 可以根据action来区分操作, 但这里没必要
                 [self.connectingDevice.peripheral writeValue:[MKBLEProtocolTool encodeProtocolForAction:self.action withModel:nil] forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
+                return;
             }else{
                 if (self.state >= MKBLEStateScanning) {
                     if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
@@ -513,8 +512,16 @@ static MKBLEManager *mgr = nil;
                 if ([self.delegate respondsToSelector:@selector(manager:result:ofDeviceModel:forFunction:withResponseData:)] == YES) {
                     [self.delegate manager:self result:MKBLEResultFail ofDeviceModel:self.connectingDevice.model forFunction:(MKBLEFunction)self.action withResponseData:nil];
                 }
-                [self disconnectAction];
+//                [self disconnectAction];
             }
+            break;
+        }
+        case MKBLEProtocolTypeInfoResponse:{
+            //NSLog(@"开门成功");
+            if ([self.delegate respondsToSelector:@selector(manager:result:ofDeviceModel:forFunction:withResponseData:)] == YES) {
+                [self.delegate manager:self result:MKBLEResultSuccess ofDeviceModel:self.connectingDevice.model forFunction:(MKBLEFunction)self.action withResponseData:m.data];
+            }
+//            [self disconnectAction];
             break;
         }
         case MKBLEProtocolTypeResponse:{
@@ -522,7 +529,7 @@ static MKBLEManager *mgr = nil;
             if ([self.delegate respondsToSelector:@selector(manager:result:ofDeviceModel:forFunction:withResponseData:)] == YES) {
                 [self.delegate manager:self result:MKBLEResultSuccess ofDeviceModel:self.connectingDevice.model forFunction:(MKBLEFunction)self.action withResponseData:m.data];
             }
-            [self disconnectAction];
+//            [self disconnectAction];
             break;
         }
         case MKBLEProtocolTypeFetchInfo:{
@@ -530,16 +537,16 @@ static MKBLEManager *mgr = nil;
             if ([self.delegate respondsToSelector:@selector(manager:result:ofDeviceModel:forFunction:withResponseData:)] == YES) {
                 [self.delegate manager:self result:MKBLEResultSuccess ofDeviceModel:self.connectingDevice.model forFunction:(MKBLEFunction)self.action withResponseData:nil];
             }
-            [self disconnectAction];
+//            [self disconnectAction];
             break;
         }
         default:{
-            self.state = MKBLEStateConnected;
-            if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
-                [self.delegate manager:self didUpdateState:MKBLEStateConnected];
-            }
             break;
         }
+    }
+    self.state = MKBLEStateConnected;
+    if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
+        [self.delegate manager:self didUpdateState:MKBLEStateConnected];
     }
 }
 

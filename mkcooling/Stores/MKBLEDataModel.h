@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger auth_key;
 
+@property (nonatomic, assign) NSInteger delay;
+
+@property (nonatomic, strong) NSDate *update_time;
+
 - (void)setDataModelWithRawData:(NSData *)rawData;
 
 @end
