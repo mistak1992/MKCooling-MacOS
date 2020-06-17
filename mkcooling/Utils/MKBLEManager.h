@@ -87,8 +87,6 @@ typedef NS_ENUM(NSUInteger, MKBLEState) {
 
 - (MKBLEResult)setDevice:(MKBLEDeviceModel *)deviceModel forFunction:(MKBLEFunction)function;
 
-- (void)resetConnection;
-
 @end
 
 NS_ASSUME_NONNULL_END

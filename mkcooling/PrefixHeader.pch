@@ -64,6 +64,11 @@ typedef NS_ENUM(NSUInteger, MKBLEProtocolType) {
     MKBLEProtocolTypeResponse = 0xff,
 };
 
+typedef NS_ENUM(NSUInteger, MKPopoverUIState) {
+    MKPopoverUIStateDefault,
+    MKPopoverUIStateOffline,
+};
+
 typedef NS_ENUM(NSUInteger, MKBLEProtocolRet) {
     MKBLEProtocolRetSuccess,
     MKBLEProtocolRetFail = 0xef,

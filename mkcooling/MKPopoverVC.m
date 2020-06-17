@@ -22,6 +22,10 @@
 
 @property (weak) IBOutlet NSButton *scanButton;
 
+@property (nonatomic, assign) MKCoolerMode currentMode;
+
+@property (nonatomic, assign) MKPopoverUIState currentState;
+
 @end
 
 @implementation MKPopoverVC
@@ -75,6 +79,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do view setup here.
     if ([[MKBLEManager sharedSingleton] state] >= MKBLEStateConnected) {
         [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
@@ -94,7 +99,10 @@
 #pragma mark - 切换模式通知接受
 - (void)changeMode:(NSNotification *)notification{
     MKCoolerMode mode = [notification.userInfo[@"currentMode"] longValue];
-    [self setUIWithMode:mode];
+    if (mode != _currentMode) {
+        _currentMode = mode;
+        [self setUIWithMode:mode];
+    }
 }
 
 #pragma mark - 设置界面UI
@@ -118,6 +126,28 @@
         }
         default:
             break;
+    }
+}
+
+- (void)setUIWithState:(MKPopoverUIState)state{
+    if (_currentState != state) {
+        _currentState = state;
+        switch (state) {
+            case MKPopoverUIStateDefault:{
+                [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
+                self.fanRPMSlider.enabled = YES;
+                self.modeList.enabled = YES;
+                break;
+            }
+            case MKPopoverUIStateOffline:{
+                [self.scanButton setImage:[NSImage imageNamed:@"mainIcon-offline"]];
+                self.fanRPMSlider.enabled = NO;
+                self.modeList.enabled = NO;
+                break;
+            }
+            default:
+                break;
+        }
     }
 }
 
@@ -190,16 +220,13 @@
 - (void)handleBLEStateChanged:(NSNotification *)notification{
     MKBLEState state = [notification.userInfo[@"BLEState"] intValue];
     switch (state) {
+        case MKBLEStateCommucating:
         case MKBLEStateConnected:{
-            [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
-            self.fanRPMSlider.enabled = YES;
-            self.modeList.enabled = YES;
+            [self setUIWithState:MKPopoverUIStateDefault];
             break;
         }
         default:{
-            [self.scanButton setImage:[NSImage imageNamed:@"mainIcon-offline"]];
-            self.fanRPMSlider.enabled = NO;
-            self.modeList.enabled = NO;
+            [self setUIWithState:MKPopoverUIStateOffline];
             break;
         }
     }

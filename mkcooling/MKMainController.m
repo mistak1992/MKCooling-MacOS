@@ -57,7 +57,10 @@
 }
 
 - (void)resetConnection:(NSNotification *)notification{
-    [[MKBLEManager sharedSingleton] resetConnection];
+    [[MKBLEManager sharedSingleton] stop];
+    [[MKBLEManager sharedSingleton] start];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"StoredDevices"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)timerAction:(NSTimer *)timer{
@@ -94,7 +97,10 @@
                             if (percentage < 0) {
                                 percentage = 0;
                             }
-                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)(percentage * 100)]}];
+                            NSInteger fan_percentage = percentage * 100;
+                            if (self.model.fan_percentage != fan_percentage) {
+                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)fan_percentage]}];
+                            }
         //                    self.currentFanDuty = percentage;
                             break;
                         }
@@ -114,7 +120,10 @@
                             if (cpuLoad < 0) {
                                 cpuLoad = 0;
                             }
-                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)(cpuLoad * 100)]}];
+                            NSInteger fan_percentage = cpuLoad * 100;
+                            if (self.model.fan_percentage != fan_percentage) {
+                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)fan_percentage]}];
+                            }
         //                    self.currentFanDuty = cpuLoad;
                             break;
                         }
@@ -276,7 +285,6 @@
 
 - (NSArray<MKBLEDeviceModel *> *)retrievePeripheralsWithDeviceModelsForManager:(MKBLEManager *)manager{
     NSArray *storedDatas = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-//    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"StoredDevices"];
     NSMutableArray *storedDevices = [NSMutableArray array];
     for (NSData *data in storedDatas) {
         MKBLEDeviceModel *deviceModel = nil;

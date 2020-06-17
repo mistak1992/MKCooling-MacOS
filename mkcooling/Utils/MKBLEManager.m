@@ -405,11 +405,11 @@ static MKBLEManager *mgr = nil;
     _timerCounterOfSendCommand = sendCommandTimeoutInterval;
 }
 
-- (void)resetConnection{
-    /* Store */
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"StoredDevices"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//- (void)resetConnection{
+//    /* Store */
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"StoredDevices"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
 - (void)arrangeDiscoveredDeviceModel:(MKBLEDeviceModel *)model andPeripheral:(CBPeripheral *)peripheral{
     if ([_whiteList containsObject:model.mac] == YES) {

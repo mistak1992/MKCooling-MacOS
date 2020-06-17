@@ -28,7 +28,6 @@
 
 - (IBAction)resetButtonClicked:(NSButton *)sender{
     [self.view.window close];
-    return;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RESETCONNECTION object:nil];
 }
 
