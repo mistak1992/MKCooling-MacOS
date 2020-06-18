@@ -133,12 +133,13 @@
     if (_currentState != state) {
         _currentState = state;
         switch (state) {
-            case MKPopoverUIStateDefault:{
+            case MKPopoverUIStateOnline:{
                 [self.scanButton setImage:[NSImage imageNamed:@"mainIcon"]];
                 self.fanRPMSlider.enabled = YES;
                 self.modeList.enabled = YES;
                 break;
             }
+            case MKPopoverUIStateDefault:
             case MKPopoverUIStateOffline:{
                 [self.scanButton setImage:[NSImage imageNamed:@"mainIcon-offline"]];
                 self.fanRPMSlider.enabled = NO;
@@ -222,7 +223,7 @@
     switch (state) {
         case MKBLEStateCommucating:
         case MKBLEStateConnected:{
-            [self setUIWithState:MKPopoverUIStateDefault];
+            [self setUIWithState:MKPopoverUIStateOnline];
             break;
         }
         default:{

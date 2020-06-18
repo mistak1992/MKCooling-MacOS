@@ -66,6 +66,7 @@ typedef NS_ENUM(NSUInteger, MKBLEProtocolType) {
 
 typedef NS_ENUM(NSUInteger, MKPopoverUIState) {
     MKPopoverUIStateDefault,
+    MKPopoverUIStateOnline,
     MKPopoverUIStateOffline,
 };
 
