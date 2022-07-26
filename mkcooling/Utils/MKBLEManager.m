@@ -137,7 +137,7 @@ static MKBLEManager *mgr = nil;
 - (void)start{
     if (_centralFlag == YES) {
         // load connected device
-        NSArray *storedDevices = [self loadSavedDevices];
+        NSArray *storedDevices = @[];//[self loadSavedDevices];
         if ([storedDevices isKindOfClass:[NSArray class]] == YES && storedDevices.count > 0) {
             for (MKBLEDeviceModel *device in storedDevices) {
                 if (![device isKindOfClass:[MKBLEDeviceModel class]]) continue;
@@ -357,7 +357,6 @@ static MKBLEManager *mgr = nil;
 
 #pragma mark - write callback
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-    DDLogInfo(@"write success");
     if (error != nil) {
         DDLogInfo(@"%@", error);
         self.state = MKBLEStatePoweredOn;
@@ -366,6 +365,7 @@ static MKBLEManager *mgr = nil;
         }
         return;
     }
+    DDLogInfo(@"write success");
     // 收到回复
     [self actionForCharacteristic:characteristic value:characteristic.value];
 }
@@ -487,6 +487,10 @@ static MKBLEManager *mgr = nil;
 - (void)actionForCharacteristic:(CBCharacteristic *)characteristic value:(NSData *)rawValue{
     [self actionForTimeoutOff];
     if (rawValue.length != 16) {
+        self.state = MKBLEStateConnected;
+        if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
+            [self.delegate manager:self didUpdateState:MKBLEStateConnected];
+        }
         return;
     }
     MKBLEProtocolModel *m = [MKBLEProtocolTool decodeProtocolWithRawData:rawValue];

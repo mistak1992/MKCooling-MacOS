@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CB434F0289027410027AFA6 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB434EF289027410027AFA6 /* CocoaLumberjack.xcframework */; };
+		6CB434F1289027410027AFA6 /* CocoaLumberjack.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB434EF289027410027AFA6 /* CocoaLumberjack.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CC4D2EED23FD136F0002678D /* mkcoolingLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC4D2EF823FD154B0002678D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2EEF23FD154A0002678D /* AppDelegate.m */; };
 		CC4D2EFA23FD154B0002678D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4D2EF223FD154A0002678D /* Assets.xcassets */; };
@@ -28,7 +30,6 @@
 		CC4D2F3F23FFE74B0002678D /* MKDialogueC.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D2F3D23FFE74B0002678D /* MKDialogueC.m */; };
 		CC5EE260249780F300834475 /* MKBLEDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EE25C249780F300834475 /* MKBLEDeviceModel.m */; };
 		CC5EE261249780F300834475 /* MKBLEProtocolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EE25F249780F300834475 /* MKBLEProtocolModel.m */; };
-		CC5EE2662497820B00834475 /* libprocInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5EE2632497820B00834475 /* libprocInfo.a */; };
 		CC5EE2672497820B00834475 /* MKCpuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EE2652497820B00834475 /* MKCpuTool.m */; };
 		CC5EE2692497860900834475 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5EE268249785A900834475 /* libbsm.tbd */; };
 		CC5EE26C2498FF7C00834475 /* MKDate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5EE26B2498FF7C00834475 /* MKDate.m */; };
@@ -36,11 +37,7 @@
 		CCF2B9F023FCEEEE0007FC1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9EF23FCEEEE0007FC1D /* Assets.xcassets */; };
 		CCF2B9F323FCEEEE0007FC1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */; };
 		CCF2B9F623FCEEEE0007FC1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF2B9F523FCEEEE0007FC1D /* main.m */; };
-		CCF2B9FF23FCFF8B0007FC1D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; };
-		CCF2BA0023FCFF8B0007FC1D /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CCF2BA0C23FD0CC40007FC1D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; };
 		CCF2BA0F23FD0CC40007FC1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCF2B9F123FCEEEE0007FC1D /* Main.storyboard */; };
-		CCF2BA1123FD0CC40007FC1D /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CCF2BA0023FCFF8B0007FC1D /* CocoaLumberjack.framework in Embed Frameworks */,
+				6CB434F1289027410027AFA6 /* CocoaLumberjack.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,7 +58,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CCF2BA1123FD0CC40007FC1D /* CocoaLumberjack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6CB434EF289027410027AFA6 /* CocoaLumberjack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CocoaLumberjack.xcframework; path = Carthage/Build/CocoaLumberjack.xcframework; sourceTree = "<group>"; };
 		CC4D2EEF23FD154A0002678D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CC4D2EF023FD154A0002678D /* mkcoolingLauncher.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = mkcoolingLauncher.entitlements; sourceTree = "<group>"; };
 		CC4D2EF223FD154A0002678D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,8 +117,6 @@
 		CC5EE25D249780F300834475 /* MKBLEDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBLEDeviceModel.h; sourceTree = "<group>"; };
 		CC5EE25E249780F300834475 /* MKBLEProtocolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBLEProtocolModel.h; sourceTree = "<group>"; };
 		CC5EE25F249780F300834475 /* MKBLEProtocolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBLEProtocolModel.m; sourceTree = "<group>"; };
-		CC5EE2622497820B00834475 /* procInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = procInfo.h; sourceTree = "<group>"; };
-		CC5EE2632497820B00834475 /* libprocInfo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprocInfo.a; sourceTree = "<group>"; };
 		CC5EE2642497820B00834475 /* MKCpuTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKCpuTool.h; sourceTree = "<group>"; };
 		CC5EE2652497820B00834475 /* MKCpuTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKCpuTool.m; sourceTree = "<group>"; };
 		CC5EE268249785A900834475 /* libbsm.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbsm.tbd; path = usr/lib/libbsm.tbd; sourceTree = SDKROOT; };
@@ -135,7 +130,6 @@
 		CCF2B9F423FCEEEE0007FC1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCF2B9F523FCEEEE0007FC1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CCF2B9FD23FCF0380007FC1D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/Mac/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		CCF2BA1523FD0CC40007FC1D /* mkcoolingLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mkcoolingLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -144,9 +138,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CB434F0289027410027AFA6 /* CocoaLumberjack.xcframework in Frameworks */,
 				CC5EE2692497860900834475 /* libbsm.tbd in Frameworks */,
-				CCF2B9FF23FCFF8B0007FC1D /* CocoaLumberjack.framework in Frameworks */,
-				CC5EE2662497820B00834475 /* libprocInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +147,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF2BA0C23FD0CC40007FC1D /* CocoaLumberjack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +156,8 @@
 		6A79CCA13CF2F64709EE3F64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6CB434EF289027410027AFA6 /* CocoaLumberjack.xcframework */,
 				CC5EE268249785A900834475 /* libbsm.tbd */,
-				CCF2B9FE23FCFF8B0007FC1D /* CocoaLumberjack.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -194,10 +186,8 @@
 		CC4D2F0023FD21290002678D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CC5EE2632497820B00834475 /* libprocInfo.a */,
 				CC5EE2642497820B00834475 /* MKCpuTool.h */,
 				CC5EE2652497820B00834475 /* MKCpuTool.m */,
-				CC5EE2622497820B00834475 /* procInfo.h */,
 				CC4D2F0923FD21290002678D /* Constants.h */,
 				CC4D2F0523FD21290002678D /* MachineDefaults.h */,
 				CC4D2F1023FD21290002678D /* MachineDefaults.m */,

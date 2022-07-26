@@ -12,8 +12,6 @@
 
 #import "smcWrapper.h"
 
-#import "procInfo.h"
-
 @interface MKMainController () <MKBLEManagerDelegate, MKBLEManagerDatasource>
 // 状态栏
 @property (nonatomic, strong) NSStatusItem *statusBar;
@@ -252,7 +250,7 @@
     if (devices.count == 1) {
 //        DDLogInfo(@"found 1 and state%ld", (long)manager.state);
         if (manager.state == MKBLEStateScanning || manager.state == MKBLEStatePoweredOn) {
-            [manager setDevice:devices.firstObject forFunction:MKBLEFunctionSetDelay];
+            [manager setDevice:devices.firstObject forFunction:MKBLEFunctionFetchInfo];
         }
     }
 }
@@ -347,7 +345,7 @@
     self.interval = 2;
     [MKBLEManager sharedSingleton].delegate = self;
     [MKBLEManager sharedSingleton].datasource = self;
-    [[MKBLEManager sharedSingleton].whiteList addObject:@"3c71bf5933ca"];
+    [[MKBLEManager sharedSingleton].whiteList addObject:@"50029187962a"]; //3c71bf5933ca
     // 加载状态栏
     [self.statusBar.button setAction:@selector(statusBarButtonClick:)];
     // 设置弹出窗口
@@ -383,7 +381,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNAME_RPM object:nil userInfo:@{@"fan_duty":[NSString stringWithFormat:@"%d", (int)([userDefault[@"RPMValue"] floatValue] * 100)]}];
     }
     //
-    ProcInfo* procInfo = [[ProcInfo alloc] init:NO];
+//    ProcInfo* procInfo = [[ProcInfo alloc] init:NO];
 //    NSLog(@"%@", [procInfo currentProcesses]);
     
 }
