@@ -137,7 +137,7 @@ static MKBLEManager *mgr = nil;
 - (void)start{
     if (_centralFlag == YES) {
         // load connected device
-        NSArray *storedDevices = @[];//[self loadSavedDevices];
+        NSArray *storedDevices = [self loadSavedDevices];
         if ([storedDevices isKindOfClass:[NSArray class]] == YES && storedDevices.count > 0) {
             for (MKBLEDeviceModel *device in storedDevices) {
                 if (![device isKindOfClass:[MKBLEDeviceModel class]]) continue;
@@ -155,12 +155,6 @@ static MKBLEManager *mgr = nil;
                             [self arrangeDiscoveredDeviceModel:device andPeripheral:self.connectingDevice.peripheral];
                         }
                     }
-//                    self.state = MKBLEStateConnecting;
-//                    if ([self.delegate respondsToSelector:@selector(manager:didUpdateState:)] == YES) {
-//                        [self.delegate manager:self didUpdateState:MKBLEStateConnecting];
-//                    }
-//                    [self.centralManager connectPeripheral:self.connectingDevice.peripheral options:@{}];
-//                    self.isConnectingTimeoutOn = YES;
                     return;
                 }else{
                     
@@ -202,7 +196,7 @@ static MKBLEManager *mgr = nil;
     NSData *manufacturerData = advertisementData[@"kCBAdvDataManufacturerData"];
     NSString *manufaceturerHexStr = [[MKConvertor hexStringFromData:manufacturerData] lowercaseString];
     if ([manufaceturerHexStr length] > 8 && [[manufaceturerHexStr substringWithRange:NSMakeRange(0, 8)] isEqualToString:@"4d4b0001"] == YES) {
-        DDLogVerbose(@"广播数据:%@", advertisementData);
+//        DDLogVerbose(@"广播数据:%@", advertisementData);
         MKBLEDeviceModel *model = [[MKBLEDeviceModel alloc] initWithManufactureData:manufacturerData andUUIDString:peripheral.identifier.UUIDString];
         // 获取big endian比较
         NSMutableData *macDatas = [MKConvertor dataForHexString:model.mac].mutableCopy;
@@ -268,7 +262,7 @@ static MKBLEManager *mgr = nil;
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
-    DDLogVerbose(@"%@", peripheral);
+//    DDLogVerbose(@"%@", peripheral);
 //    for (CBService *service in peripheral.services) {
 //        self.service = service;
 //        [peripheral discoverCharacteristics:[self getAllCharacteristicUUID] forService:service];

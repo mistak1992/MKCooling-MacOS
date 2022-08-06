@@ -34,6 +34,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelAll;
 #define kNotificationNAME_MODECHANGED @"kNotificationNAME_MODECHANGED"
 #define kNotificationNAME_STATECHANGED @"kNotificationNAME_STATECHANGED"
 #define kNotificationNAME_BLESTATECHANGED @"kNotificationNAME_BLESTATECHANGED"
+// 设备MAC地址
+static NSString *deviceMAC = @"50029187962a";
+
 
 typedef NS_ENUM(NSUInteger, MKCoolerMode) {
     MKCoolerModeOff,

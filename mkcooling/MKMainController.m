@@ -345,7 +345,7 @@
     self.interval = 2;
     [MKBLEManager sharedSingleton].delegate = self;
     [MKBLEManager sharedSingleton].datasource = self;
-    [[MKBLEManager sharedSingleton].whiteList addObject:@"50029187962a"]; //3c71bf5933ca
+    [[MKBLEManager sharedSingleton].whiteList addObject:deviceMAC]; //3c71bf5933ca
     // 加载状态栏
     [self.statusBar.button setAction:@selector(statusBarButtonClick:)];
     // 设置弹出窗口
